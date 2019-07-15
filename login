@@ -1,3 +1,59 @@
+package com.example.login;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+     private EditText NAME;
+     private EditText  PASSWORD;
+    private Button LOGIN;
+    private  TextView info;
+    private int counter=5;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        NAME = (EditText) findViewById(R.id.NAME);
+        PASSWORD =(EditText) findViewById(R.id.PASSWORD);
+        LOGIN=(Button)findViewById(R.id.LOGIN);
+        info=(TextView)findViewById(R.id.info);
+
+        info.setText("no of attempts remaming: 5");
+         LOGIN.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View view) {
+                 validate(NAME.getText().toString(),PASSWORD.getText().toString());
+             }
+         });
+
+        }
+
+
+   private void validate(String username, String userpassword){
+        if((username=="ABC")&&(userpassword =="1234"))
+        {
+            Intent intent = new Intent(MainActivity.this,SecondActivity.class);
+            startActivity(intent);
+
+        }else{
+            counter--;
+            info.setText("no of attempts remaining:" +String.valueOf(counter));
+               if(counter == 0){
+                LOGIN.setEnabled(false);
+            }
+        }
+
+    }
+}
 package com.example.myfirebase;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -72,8 +128,7 @@ import com.google.firebase.FirebaseApp;
        
      }
   }
-  
-     
+
      
   
 

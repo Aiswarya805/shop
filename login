@@ -128,7 +128,80 @@ import com.google.firebase.FirebaseApp;
        
      }
   }
-
-     
+  package com.example.myfirebase;
   
+     import...
 
+   public class MainActivity extends AppCompatActivity {
+    private static final String  TAG = "MYTAG";
+    private Button Submit,ReadData;
+    private TextView OutputText;
+    
+    private FirebaseDatabase nData;
+    private DatabaseReference nref;
+    
+    @Override
+        protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        initViews();
+        nData = FirebaseDatabase.getInstance();
+        nref = nData.getRefernce(path: "users");
+        
+        this.Submit.setOnClickListener(this::runCode);
+        this.ReadData.setOnClickListener(this::readData);
+        
+        }
+        private void readData(View view){
+        nref.addChildEventListener( new ChildEventListener() {
+        @Override
+        public void onChildAdded(@NonNull DataSnapshot dataSnapshot,@NonNull String s){
+        Map<String,Object> data= (Map<STring>,Object) dataSnapshot.getValue();
+        
+        Log.d(TAG, msg: "onChildAdded: Name: "+data.get("Name"));
+        
+        }
+         @Override
+        public void onChildChanged(@NonNull DataSnapshot dataSnapshot,@NonNull String s){
+          Log.d(TAG,msg:"onChildChanged: called");
+          
+          Map<String,Object> data= (Map<STring>,Object) dataSnapshot.getValue();
+          
+           Log.d(TAG, msg: "onChildAdded: Name: "+data.get("Name"));
+       }
+       
+         @Override
+        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot){
+        
+        }
+        
+         @Override
+        public void onChildMoved(@NonNull DataSnapshot dataSnapshot,@NonNull String s){
+        
+        }
+        
+         @Override
+        public void onCancelled(@NonNull DatabaseError databaseError){
+        
+        }
+       });
+      }
+      
+      private void runcode(View view){
+      // insert data here
+      
+      String data= InputText.getText().toString();
+      String key=nref.push().getKey();
+      nref.child(key).child("Name").setValue(data);
+      
+      }
+      
+      private void initView() {...}
+    }
+    
+      
+        
+        
+        
+ 

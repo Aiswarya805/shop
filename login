@@ -200,7 +200,141 @@ import com.google.firebase.FirebaseApp;
       private void initView() {...}
     }
     
+      package com.example.loginfirebase;
+  
+     import...
+
+   public class MainActivity extends AppCompatActivity {
+   
+   ListView iv;
+   FirebaseListAdapter adapter;
+    @Override
+        protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        iv = (ListView) findViewById(R.id.listview);
+        Query query = FirebaseDatabase.getInstance(0.getReference().child("Shops");
+        FirebaseListOptions<Shops> options = new firebaseListOptions.Builder<student>
+                        .setLayout(R.layout.shops).setQuery(query,shops.class).build());
+        adapter = new firebaseListAdapter(options) {
+        @Override
+        protected void populateView(view v,Object mode, int position) {
+         TextView shopid = v.findViewbyId(R.id.shopid);
+         TextView name = v.findViewbyId(R.id.name);
+         
+         Shops shops = (Shops) mode;
+         shopid.setText("ID: " +shops.getShopsid().toString());
+         name.setText("NAME: " +shops.getName().toString());
+        }
+      };
+      iv.setAdapter(adapter);
+      } 
       
+     @Override
+     protected void onstart()  {
+     super.onStart();
+     adapter.startListening();
+     }
+     
+     @Override
+     protected void onStop()  {
+     super.onStop();
+     adapter.stopListening();
+     }
+
+    package com.example.loginfirebase;
+  
+     import...
+
+   public class MainActivity extends AppCompatActivity {
+   
+   ListView iv;
+   FirebaseListAdapter adapter;
+    @Override
+        protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        iv = (ListView) findViewById(R.id.listview);
+        Query query = FirebaseDatabase.getInstance(0.getReference().child("Shops");
+        FirebaseListOptions<Shops> options = new firebaseListOptions.Builder<student>
+                        .setLayout(R.layout.shops).setQuery(query,shops.class).build());
+        adapter = new firebaseListAdapter(options) {
+        @Override
+        protected void populateView(view v,Object mode, int position) {
+         TextView shopid = v.findViewbyId(R.id.shopid);
+         TextView name = v.findViewbyId(R.id.name);
+         
+         Shops shops = (Shops) mode;
+         shopid.setText("ID: " +shops.getShopsid().toString());
+         name.setText("NAME: " +shops.getName().toString());
+        }
+      };
+      iv.setAdapter(adapter);
+      iv.setOnItemClickListener(new Adapterview.OnItemClickListener()   {
+      @Override
+      public void onItemclick(Adapterview<?> adapterView, View view,int i ,long l)  {
+      Intent UpateDelete =  new Intent ( packageContext: start.this,updateDelete.class);
+      Shops shops = (Shops) adapterView.getItemAtposition(i);
+      UpdateDelete.putExtra(name: "shopid",s.getShopid());
+      UpdateDelete.putExtra(name: "name",s.getName());
+      UpdateDelete.putExtra(name: "key",s.getShops());
+
+
+    startActivity(updateDelete);
+ }
+
+    package com.example.loginfirebase;
+  
+     import...
+
+   public class updateDelete  extends AppCompatActivity {
+   EditText shopid,name; 
+   TextView key1;
+   DatabaseReference nref;
+         @Override
+        protected void onCreate(Bundle savedInstanceState) {
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_main);
+        shopid = (EditText) findViewById (R.id.shopid);
+        name = (EditText) findViewById (R.id.name);
+        String key=getIntent().getExtras().get("key").toString();
+        nref=FirebaseDatabase.getInstance().getReferences().child("Shops").child(key);
+
+       key1 = (TextView) findViewById(R.id.key);  key1.setText(key);
+       shopid.setText(getIntent(0.getStringExtra(name: "shopid"));
+       name.setText(getIntent(0.getStringExtra(name: "name")); 
+
+    }
+      public void Update_Click(View view) {
+        nref.addlistenerForsingleValueEvent( new ValueEventListener ()  {
+     @Override
+     public void onDataChange(DataSnapshot dataSnapshot) {
+     dataSnapshot.getnref().child("shopid").setValue(shopid.getText().toString());
+     dataSnapshot.getnref().child("name").setValue(name.getText().toString());
+     Toast.makeText(context:updateDelete.this,text:"Data updated Successfully",Toast.LENGTH_LONG).show();
+     updateDelete.this.finish();
+  }
+   @Override
+   public void onCancelled(DatabaseError databaseError) {
+
+  }
+});
+    public void Delete_Click(View view) {
+    nref.removeValue().addOnCompleteListener(new OnCompleteListener<Void>) () {
+    @Override
+    public void onComplete(@NonNull Task<Void> task) {
+    if(ask.isSucessful())
+    {
+      Toast.makeText(context:updateDelete.this,text:"Deleted sucessfully",Toast.LENGTH_LONG).show();
+       updateDelete.this.finish();
+    }else {
+       Toast.makeText(context:updateDelete.this,text:" Not Deleted",Toast.LENGTH_LONG).show();
+     }
+     
+   }
+ });
         
         
         

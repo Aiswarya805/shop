@@ -214,7 +214,7 @@ import com.google.firebase.FirebaseApp;
         setContentView(R.layout.activity_main);
         
         iv = (ListView) findViewById(R.id.listview);
-        Query query = FirebaseDatabase.getInstance(0.getReference().child("Shops");
+        Query query = FirebaseDatabase.getInstance().getReference().child("Shops");
         FirebaseListOptions<Shops> options = new firebaseListOptions.Builder<student>
                         .setLayout(R.layout.shops).setQuery(query,shops.class).build());
         adapter = new firebaseListAdapter(options) {
@@ -303,8 +303,8 @@ import com.google.firebase.FirebaseApp;
         nref=FirebaseDatabase.getInstance().getReferences().child("Shops").child(key);
 
        key1 = (TextView) findViewById(R.id.key);  key1.setText(key);
-       shopid.setText(getIntent(0.getStringExtra(name: "shopid"));
-       name.setText(getIntent(0.getStringExtra(name: "name")); 
+       shopid.setText(getIntent().getStringExtra(name: "shopid"));
+       name.setText(getIntent().getStringExtra(name: "name")); 
 
     }
       public void Update_Click(View view) {
